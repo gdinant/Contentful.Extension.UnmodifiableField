@@ -9,38 +9,14 @@
     <script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
   </head>
   <body>
-    <input id="unmodifiableInput" type="text" class="cf-form-input" />
+    <input id="unmodifiableField" type="text" class="cf-form-input" />
     <script>
       
-        var contentfulApi;
-        var field;
-
-        function unmodifiableField(ext){
-           contentfulApi = ext;
-           var value = contentfulApi.field.getValue();
-           field = document.querySelector("#unmodifiableInput");
-
-           // Set initial value
-           if (!!value) {
-             field.value = value;
-             field.disabled = true;
-           } else {
-             field.addEventListener("change", updateValue);
-           }
-           contentfulApi.window.updateHeight();
+        function unmodifiableField(contentfulApi) {
+           field = document.querySelector("#unmodifiableField");
+           field.value = contentfulApi.field.getDefaultValue();
+           field.disabled = true;
         }
-
-        function updateValue(){
-            if (field.value != contentfulApi.field.getValue()) {
-
-              if(contentfulApi.field.type == "Integer" || contentfulApi.field.type == "Number") {
-                contentfulApi.field.setValue(parseInt(field.value));
-              }
-              else {
-                contentfulApi.field.setValue(field.value);
-              }
-            }
-         }
 
         window.contentfulExtension.init(unmodifiableField);
       
