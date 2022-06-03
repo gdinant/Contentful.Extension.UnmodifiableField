@@ -6,44 +6,44 @@
     <!-- Contentful's default styles -->
     <link rel="stylesheet" href="https://contentful.github.io/ui-extensions-sdk/cf-extension.css">
     <!-- UI Extensions SDK -->
-    <script src="https://contentful.github.io/ui-extensions-sdk/cf-extension-api.js"></script>
+    <script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
   </head>
   <body>
-    <input type="text" class="cf-form-input" id="lockedInput"/>
+    <input id="unmodifiableInput" type="text" class="cf-form-input" />
     <script>
-        var ctfApi;
-        var inp;
+      
+        var contentfulApi;
+        var field;
 
-        function LockedField(ctfExt){
-           ctfApi = ctfExt;
-            var value = ctfApi.field.getValue();
-            inp = document.querySelector("#lockedInput");
+        function unmodifiableField(ext){
+           contentfulApi = ext;
+           var value = contentfulApi.field.getValue();
+           field = document.querySelector("#unmodifiableInput");
 
-            // Set initial value
-            if (value !== "" && value !== " " && value != undefined) {
-              inp.value = value;
-              inp.disabled = true;
-            }
-            else {
-              inp.addEventListener("change", UpdateValue);
-            }
-
-            ctfApi.window.updateHeight();
+           // Set initial value
+           if (!!value) {
+             field.value = value;
+             field.disabled = true;
+           } else {
+             field.addEventListener("change", updateValue);
+           }
+           contentfulApi.window.updateHeight();
         }
 
-        function UpdateValue(){
-            if (inp.value != ctfApi.field.getValue()) {
+        function updateValue(){
+            if (field.value != contentfulApi.field.getValue()) {
 
-              if(ctfApi.field.type == "Integer" || ctfApi.field.type == "Number") {
-                ctfApi.field.setValue(parseInt(inp.value));
+              if(contentfulApi.field.type == "Integer" || contentfulApi.field.type == "Number") {
+                contentfulApi.field.setValue(parseInt(field.value));
               }
               else {
-                ctfApi.field.setValue(inp.value);
+                contentfulApi.field.setValue(field.value);
               }
             }
          }
 
-        window.contentfulExtension.init(LockedField);
+        window.contentfulExtension.init(unmodifiableField);
+      
     </script>
   </body>
 </html>
