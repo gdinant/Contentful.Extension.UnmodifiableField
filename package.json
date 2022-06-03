@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "contentful-extension-cli": "^2.0.0",
-    "global": "^4.3.2"
+    "contentful-cli": "^1.14.2"
   }
 }
