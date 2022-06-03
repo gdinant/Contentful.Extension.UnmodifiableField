@@ -1,6 +1,6 @@
 {
-    "id": "lockedfield",
-    "name": "Locked field",
+    "id": "unmodifiableField",
+    "name": "Unmodifiable field",
     "srcdoc": "./index.html",
     "fieldTypes": ["Symbol","Text","Integer","Number"]
-  }
+}
