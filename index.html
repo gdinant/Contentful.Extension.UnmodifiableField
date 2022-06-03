@@ -12,9 +12,17 @@
     <input id="unmodifiableField" type="text" class="cf-form-input" />
     <script>
       
-        function unmodifiableField(contentfulApi) {
-           field = document.querySelector("#unmodifiableField");
-           field.value = contentfulApi.field.getDefaultValue();
+        function unmodifiableField(sdk) {
+          
+           var field = document.querySelector("#unmodifiableField");
+          
+           var value = sdk.field.getValue();
+           if (!value) {
+             field.value = sdk.field.getDefaultValue().de();
+           } else {
+           	 field.value = value;
+           }
+          
            field.disabled = true;
         }
 
